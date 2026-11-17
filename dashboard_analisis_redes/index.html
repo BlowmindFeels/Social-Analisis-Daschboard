@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SocialPulse | Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <aside class="sidebar">
+    <div class="brand"><span class="brand-mark">S</span><span>SocialPulse</span></div>
+    <p class="nav-label">MENÚ PRINCIPAL</p>
+    <a class="nav-item active" href="#resumen">▦ <span>Resumen</span></a>
+    <a class="nav-item" href="#alcance">◉ <span>Alcance</span></a>
+    <a class="nav-item" href="#interacciones">↗ <span>Interacciones</span></a>
+    <a class="nav-item" href="#publicaciones">▤ <span>Publicaciones</span></a>
+    <div class="sidebar-bottom">
+      <div class="profile">
+        <div class="avatar">TS</div>
+        <div><strong>Thomas Sanmiguel</strong><small>Administrador</small></div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main" id="resumen">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">ANÁLISIS DE REDES SOCIALES</p>
+        <h1>Resumen general</h1>
+        <p class="muted">Rendimiento de la cuenta ficticia <strong>@thomas.social</strong></p>
+      </div>
+      <div class="top-actions"><span class="status-dot"></span><span>Datos de demostración</span><button id="refreshBtn"
+          class="refresh">↻ Actualizar</button></div>
+    </header>
+
+    <section class="toolbar">
+      <div class="date-filters">
+        <label for="startDate">Desde</label>
+        <input id="startDate" type="date" min="2026-10-11" max="2026-10-30" value="2026-10-11">
+        <label for="endDate">Hasta</label>
+        <input id="endDate" type="date" min="2026-10-11" max="2026-10-30" value="2026-10-30">
+        <button id="applyDateFilter" class="refresh" type="button">Aplicar</button>
+      </div>
+      <p id="filterMessage" class="filter-message" role="alert" hidden></p>
+      <div id="selectedPeriod" class="period" aria-live="polite"></div>
+    </section>
+
+    <section class="metrics">
+      <article class="metric-card">
+        <div class="metric-head"><span>Alcance total</span><span class="metric-icon purple">◉</span></div><strong
+          id="reachValue">48.2K</strong>
+        <p class="positive">Total del periodo seleccionado</p>
+      </article>
+      <article class="metric-card">
+        <div class="metric-head"><span>Interacciones</span><span class="metric-icon blue">♡</span></div><strong
+          id="interactionsValue">6.840</strong>
+        <p class="positive">Total del periodo seleccionado</p>
+      </article>
+      <article class="metric-card">
+        <div class="metric-head"><span>Crecimiento neto</span><span class="metric-icon orange">♙</span></div><strong
+          id="followersValue">12.6K</strong>
+        <p class="positive">En el periodo seleccionado</p>
+      </article>
+      <article class="metric-card">
+        <div class="metric-head"><span>Publicaciones</span><span class="metric-icon green">▤</span></div><strong
+          id="postsValue">24</strong>
+        <p class="neutral">En el periodo seleccionado</p>
+      </article>
+    </section>
+
+    <section class="content-grid">
+      <article class="panel chart-panel" id="alcance">
+        <div class="panel-heading">
+          <div>
+            <h2>Alcance e interacciones</h2>
+            <p id="chartPeriod" class="muted">Evolución del periodo seleccionado</p>
+          </div><span class="legend"><i class="legend-purple"></i> Alcance <i class="legend-blue"></i>
+            Interacciones</span>
+        </div>
+        <div class="chart-wrap"><canvas id="trendChart" aria-label="Gráfico de alcance e interacciones"></canvas></div>
+      </article>
+      <article class="panel" id="interacciones">
+        <div class="panel-heading">
+          <div>
+            <h2>Tipo de interacción</h2>
+            <p class="muted">Distribución del engagement</p>
+          </div>
+        </div>
+        <div class="donut-area">
+          <div class="donut">
+            <div><strong id="donutTotal">0</strong><small>Interacciones</small></div>
+          </div>
+        </div>
+        <div class="breakdown">
+          <div><span><i class="dot purple-bg"></i> Me gusta</span><strong id="likesValue">0 <small>0%</small></strong></div>
+          <div><span><i class="dot blue-bg"></i> Comentarios</span><strong id="commentsValue">0 <small>0%</small></strong></div>
+          <div><span><i class="dot orange-bg"></i> Compartidos</span><strong id="sharesValue">0 <small>0%</small></strong></div>
+        </div>
+      </article>
+    </section>
+
+    <section class="content-grid lower-grid">
+      <article class="panel">
+        <div class="panel-heading">
+          <div>
+            <h2>Crecimiento de seguidores</h2>
+            <p class="muted">Balance de la comunidad</p>
+          </div><span id="growthTag" class="tag">+0 en el periodo</span>
+        </div>
+        <div class="follower-summary">
+          <div><small>Seguidores actuales</small><strong>12.640</strong></div>
+          <div><small>Nuevos seguidores</small><strong id="newFollowersValue" class="positive-text">0</strong></div>
+          <div><small>Dejaron de seguir</small><strong id="unfollowsValue">0</strong></div>
+        </div>
+        <div class="progress-label"><span>Meta de crecimiento (800)</span><strong id="growthProgressValue">0%</strong></div>
+        <div class="progress"><span id="growthProgress"></span></div>
+        <p class="muted small-note">La comunidad mantiene una tendencia de crecimiento positiva.</p>
+      </article>
+      <article class="panel" id="publicaciones">
+        <div class="panel-heading">
+          <div>
+            <h2>Publicaciones destacadas</h2>
+            <p class="muted">Contenido con mejor rendimiento</p>
+          </div><a href="#publicaciones" class="text-link">Ver todas</a>
+        </div>
+        <div class="post-list">
+          <div class="post-row">
+            <div class="post-thumb thumb-one">01</div>
+            <div class="post-info"><strong>Consejos para mejorar tu día</strong><small>Reel · 24 oct. 2026</small></div>
+            <div class="post-stats"><strong>2.4K</strong><small>Interacciones</small></div>
+          </div>
+          <div class="post-row">
+            <div class="post-thumb thumb-two">02</div>
+            <div class="post-info"><strong>Un vistazo a mi proyecto</strong><small>Carrusel · 19 oct. 2026</small></div>
+            <div class="post-stats"><strong>1.8K</strong><small>Interacciones</small></div>
+          </div>
+          <div class="post-row">
+            <div class="post-thumb thumb-three">03</div>
+            <div class="post-info"><strong>Pequeños momentos</strong><small>Fotografía · 12 oct. 2026</small></div>
+            <div class="post-stats"><strong>1.2K</strong><small>Interacciones</small></div>
+          </div>
+        </div>
+      </article>
+    </section>
+    <section class="panel daily-data" aria-labelledby="dailyDataHeading">
+      <div class="panel-heading">
+        <div>
+          <h2 id="dailyDataHeading">Detalle diario</h2>
+          <p id="dailyDataSummary" class="muted" aria-live="polite"></p>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Fecha</th>
+              <th scope="col">Alcance</th>
+              <th scope="col">Interacciones</th>
+              <th scope="col">Nuevos seguidores</th>
+              <th scope="col">Publicaciones</th>
+            </tr>
+          </thead>
+          <tbody id="dailyDataRows"></tbody>
+        </table>
+      </div>
+    </section>
+    <footer>SocialPulse Dashboard <span>·</span> Proyecto académico — datos completamente ficticios</footer>
+  </main>
+  <script src="app.js"></script>
+</body>
+
+</html>
